@@ -1,34 +1,1651 @@
-<!doctype html>
+
+<!DOCTYPE html>
+<!--
+=============================================================================
+  READY DEFENSE • 1 PETER 3:15 — v2.0 PRODUCTION BUILD
+=============================================================================
+  IMPROVEMENTS OVER v1:
+  • 60 total objections (was ~35) — added Bart Ehrman criticisms, dinosaurs,
+    slavery, deconstruction, other religions' miracles, morality without God,
+    homosexuality, hell, biblical genocide, and many more tough questions
+  • Full Favorites tab (was just a button)
+  • Quiz / Flashcard Training Mode (new) — cycles through questions with
+    reveal-on-tap, mastery tracking stored in localStorage
+  • Daily "Stone in Their Shoe" tactic tip on home screen — changes each day
+  • Progress Tracker — mastery badges and % complete across all questions
+  • Copy-to-clipboard on every answer
+  • Dark mode toggle (persistent via localStorage)
+  • Expanded apologist profiles with bios, links, key books
+  • Richer Koukl Tactics section with interactive Columbo mini-game
+  • Offline badge (real Service Worker-based detection)
+  • Safe-area insets for iPhone X+ notch and home bar
+  • Micro-animations: card pop-in, modal slide, haptic-feel button press
+  • Spiritual warmth: gold cross accent, verse of the day, encouraging copy
+  • PWA manifest meta tags for Add to Home Screen
+  • Bottom nav active state properly tracks all tabs
+  • Search now searches apologist name, reference, and category
+=============================================================================
+-->
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Ready Defense">
+<meta name="theme-color" content="#0f2050">
+<title>Ready Defense • 1 Peter 3:15</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root {
+  --navy:    #0f2050;
+  --navy2:   #1a3570;
+  --gold:    #c9973a;
+  --gold2:   #f0c26a;
+  --cream:   #faf7f2;
+  --warm:    #f4ede2;
+  --charcoal:#1c1c1e;
+  --muted:   #8e8e93;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bot: env(safe-area-inset-bottom, 0px);
+}
 
-    <!-- iOS fix: prevent auto-zoom on input focus, respect safe areas for notch/Dynamic Island -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+[data-dark="true"] {
+  --cream:   #1c1c1e;
+  --warm:    #2c2c2e;
+  --charcoal:#f0ece6;
+  --muted:   #aeaeb2;
+}
 
-    <title>Song Architect</title>
-    <meta name="description" content="Turn your poems and lyrics into music. Song Architect generates optimized prompts for Suno and Udio so your words become songs." />
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <!-- PWA manifest -->
-    <link rel="manifest" href="/manifest.json" />
+html, body {
+  height: 100%;
+  overflow: hidden;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: #0a0a0a;
+}
 
-    <!-- iOS PWA: makes it feel native when added to home screen -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Song Architect" />
+.serif { font-family: 'Libre Baskerville', Georgia, serif; }
 
-    <!-- iOS home screen icons (generated via manifest + these tags) -->
-    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+/* App shell */
+#app {
+  max-width: 430px;
+  margin: 0 auto;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--cream);
+  color: var(--charcoal);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 0 14px #111, 0 0 0 18px #222, 0 0 60px rgba(0,0,0,0.8);
+  border-radius: 52px;
+}
 
-    <!-- Theme color for browser chrome on Android; black matches our dark UI -->
-    <meta name="theme-color" content="#0d0d1a" />
+/* Header */
+#app-header {
+  background: linear-gradient(160deg, var(--navy) 0%, var(--navy2) 100%);
+  padding: calc(var(--safe-top) + 14px) 20px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 50;
+  flex-shrink: 0;
+}
 
-    <!-- Preconnect to Google Fonts for faster load -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+.header-shield {
+  width: 40px; height: 40px;
+  background: var(--gold);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(201,151,58,0.4);
+}
+
+.header-title { font-family: 'Libre Baskerville', serif; font-size: 20px; color: #fff; font-weight: 700; line-height: 1.1; }
+.header-sub   { font-size: 10px; color: rgba(255,255,255,0.55); margin-top: 1px; }
+.header-spacer { flex: 1; }
+.header-btn {
+  width: 38px; height: 38px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 50%;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.header-btn:active { background: rgba(255,255,255,0.25); transform: scale(0.92); }
+
+/* Main scroll area */
+#main {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  background: var(--cream);
+  transition: background 0.3s;
+}
+
+/* Bottom nav */
+#bottom-nav {
+  background: var(--cream);
+  border-top: 1px solid rgba(0,0,0,0.08);
+  padding: 8px 4px calc(var(--safe-bot) + 8px);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 50;
+  transition: background 0.3s;
+}
+
+.nav-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 6px 10px;
+  border: none; background: none; cursor: pointer;
+  color: var(--muted);
+  font-size: 10px; font-weight: 500;
+  border-radius: 14px;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-btn .nav-icon { font-size: 22px; transition: transform 0.15s; }
+.nav-btn.active { color: var(--navy); }
+.nav-btn.active .nav-icon { transform: scale(1.15); }
+.nav-btn:active .nav-icon { transform: scale(0.9); }
+
+/* Tabs */
+.tab { display: none; padding: 20px; padding-bottom: 8px; }
+.tab.active { display: block; }
+
+/* Cards */
+.card {
+  background: var(--warm);
+  border-radius: 20px;
+  padding: 18px;
+  transition: transform 0.15s, box-shadow 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.card.clickable { cursor: pointer; }
+.card.clickable:active { transform: scale(0.97); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+
+.card-navy {
+  background: linear-gradient(135deg, var(--navy), var(--navy2));
+  color: #fff;
+}
+.card-gold {
+  background: linear-gradient(135deg, #c9973a, #e8b84b);
+  color: #fff;
+}
+
+/* Pill badges */
+.pill {
+  display: inline-flex; align-items: center;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 11px; font-weight: 500;
+  background: rgba(15,32,80,0.08);
+  color: var(--navy);
+  white-space: nowrap;
+}
+.pill-gold { background: rgba(201,151,58,0.15); color: var(--gold); }
+.pill-green { background: rgba(30,120,60,0.12); color: #1e783c; }
+
+/* Input */
+.search-input {
+  width: 100%;
+  background: var(--warm);
+  border: none;
+  border-radius: 16px;
+  padding: 14px 18px;
+  font-size: 15px;
+  color: var(--charcoal);
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  transition: box-shadow 0.2s;
+}
+.search-input:focus { box-shadow: 0 0 0 2px var(--navy); }
+
+/* Section label */
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 200;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.modal-overlay.open { display: flex; }
+
+.modal-sheet {
+  background: var(--cream);
+  width: 100%;
+  max-width: 430px;
+  border-radius: 28px 28px 0 0;
+  max-height: 92svh;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s cubic-bezier(0.32,0.72,0,1);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+.modal-handle {
+  width: 36px; height: 4px;
+  background: rgba(0,0,0,0.15);
+  border-radius: 2px;
+  margin: 10px auto 0;
+  flex-shrink: 0;
+}
+
+.modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.modal-footer {
+  padding: 12px 20px calc(var(--safe-bot) + 12px);
+  border-top: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* Buttons */
+.btn {
+  border: none; cursor: pointer;
+  border-radius: 14px;
+  padding: 13px 20px;
+  font-size: 14px; font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: transform 0.1s, box-shadow 0.1s;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:active { transform: scale(0.96); }
+.btn-navy { background: var(--navy); color: #fff; }
+.btn-outline { background: var(--warm); color: var(--charcoal); border: 1px solid rgba(0,0,0,0.1); }
+.btn-gold { background: var(--gold); color: #fff; }
+
+/* Category pills scroll */
+.pills-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 16px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.pills-row::-webkit-scrollbar { display: none; }
+
+.cat-pill {
+  white-space: nowrap;
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 13px; font-weight: 500;
+  border: none; cursor: pointer;
+  background: var(--warm);
+  color: var(--charcoal);
+  transition: all 0.15s;
+  font-family: 'DM Sans', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+.cat-pill.active { background: var(--navy); color: #fff; }
+
+/* Question list item */
+.q-item {
+  display: flex; align-items: flex-start;
+  gap: 12px; padding: 16px;
+  background: var(--warm);
+  border-radius: 18px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: transform 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.q-item:active { transform: scale(0.98); }
+.q-item-star { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+.q-item-body { flex: 1; }
+.q-item-q { font-size: 15px; font-weight: 500; line-height: 1.35; color: var(--charcoal); }
+.q-item-meta { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.q-item-chevron { color: var(--muted); font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+
+/* Apologist card */
+.ap-card {
+  background: var(--warm);
+  border-radius: 20px;
+  padding: 18px;
+  cursor: pointer;
+  transition: transform 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.ap-card:active { transform: scale(0.97); }
+.ap-avatar {
+  width: 52px; height: 52px;
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+/* Quiz mode */
+.quiz-card {
+  background: var(--warm);
+  border-radius: 24px;
+  padding: 28px 24px;
+  text-align: center;
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.quiz-progress-bar {
+  height: 4px;
+  background: rgba(0,0,0,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.quiz-progress-fill {
+  height: 100%;
+  background: var(--navy);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+/* Mastery stars */
+.mastery-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Offline badge */
+#offline-badge {
+  position: absolute;
+  top: 8px; right: 60px;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  border-radius: 100px;
+  background: rgba(30,120,60,0.85);
+  color: #fff;
+}
+
+/* Animations */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { animation: fadeIn 0.3s ease both; }
+
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+.pulse { animation: pulse 2s ease-in-out infinite; }
+
+/* Tactics game */
+.scenario-box {
+  background: linear-gradient(135deg, var(--navy), #2a4a9a);
+  color: #fff;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.response-option {
+  background: var(--warm);
+  border-radius: 14px;
+  padding: 14px 16px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+  text-align: left;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--charcoal);
+  width: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+.response-option:active { transform: scale(0.98); }
+.response-option.correct { border-color: #1e783c; background: rgba(30,120,60,0.1); }
+.response-option.wrong   { border-color: #b91c1c; background: rgba(185,28,28,0.08); }
+
+/* Dark mode adjustments */
+[data-dark="true"] .card { background: #2c2c2e; }
+[data-dark="true"] .card.card-navy { background: linear-gradient(135deg, #0a1635, #1a2a5a); }
+[data-dark="true"] .search-input { background: #2c2c2e; }
+[data-dark="true"] .q-item { background: #2c2c2e; }
+[data-dark="true"] .cat-pill { background: #2c2c2e; }
+[data-dark="true"] .ap-card { background: #2c2c2e; }
+[data-dark="true"] .quiz-card { background: #2c2c2e; }
+[data-dark="true"] .response-option { background: #2c2c2e; }
+[data-dark="true"] .scenario-box { background: linear-gradient(135deg, #0a1635, #1a2a5a); }
+[data-dark="true"] .modal-sheet { background: #1c1c1e; }
+[data-dark="true"] #bottom-nav { background: #1c1c1e; }
+[data-dark="true"] #app-header { background: linear-gradient(160deg, #0a1635 0%, #0f2050 100%); }
+
+/* Scrollbar */
+#main::-webkit-scrollbar { width: 0; }
+
+/* Toast */
+#toast {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--charcoal);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0;
+  transition: all 0.3s;
+  z-index: 9999;
+  pointer-events: none;
+  white-space: nowrap;
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- HEADER -->
+  <header id="app-header">
+    <div class="header-shield">🛡️</div>
+    <div>
+      <div class="header-title">Ready Defense</div>
+      <div class="header-sub">1 Peter 3:15 · Always be prepared</div>
+    </div>
+    <div class="header-spacer"></div>
+    <button class="header-btn" onclick="toggleDark()" title="Toggle dark mode">🌙</button>
+    <button class="header-btn" onclick="openSearch()" title="Search">🔍</button>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <div id="main">
+
+    <!-- ── TAB: HOME ── -->
+    <div id="tab-home" class="tab active">
+
+      <!-- Stone in their shoe - daily tip -->
+      <div class="card card-navy mb-4 fade-in" style="position:relative;overflow:hidden;">
+        <div style="position:absolute;top:-20px;right:-10px;font-size:80px;opacity:0.07;">🪨</div>
+        <div class="section-label" style="color:rgba(255,255,255,0.5);">Stone in Their Shoe · Daily Tactic</div>
+        <p id="daily-tip" class="serif" style="font-size:18px;line-height:1.5;color:#fff;font-style:italic;margin-top:6px;"></p>
+        <div id="daily-source" style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:10px;"></div>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="card mb-4 fade-in" style="animation-delay:0.05s;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <span class="section-label" style="margin:0;">Your Mastery Progress</span>
+          <span id="mastery-count" style="font-size:13px;font-weight:600;color:var(--navy);">0 / 60</span>
+        </div>
+        <div class="quiz-progress-bar">
+          <div class="quiz-progress-fill" id="mastery-bar" style="width:0%"></div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px;">Complete Quiz Mode to mark questions as mastered</div>
+      </div>
+
+      <!-- Quick-start grid -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+        <div class="card card-navy clickable fade-in" style="animation-delay:0.08s;" onclick="switchTab('questions')">
+          <div style="font-size:32px;margin-bottom:8px;">❓</div>
+          <div style="font-size:16px;font-weight:600;margin-bottom:3px;">60 Objections</div>
+          <div style="font-size:12px;opacity:0.6;">Full Q&amp;A library</div>
+        </div>
+        <div class="card clickable fade-in" style="background:linear-gradient(135deg,#1a6b3c,#2e8a52);color:#fff;animation-delay:0.1s;" onclick="switchTab('tactics')">
+          <div style="font-size:32px;margin-bottom:8px;">🧩</div>
+          <div style="font-size:16px;font-weight:600;margin-bottom:3px;">Tactics</div>
+          <div style="font-size:12px;opacity:0.6;">Columbo mini-game</div>
+        </div>
+        <div class="card card-gold clickable fade-in" style="animation-delay:0.12s;" onclick="switchTab('quiz')">
+          <div style="font-size:32px;margin-bottom:8px;">⚡</div>
+          <div style="font-size:16px;font-weight:600;margin-bottom:3px;">Quiz Mode</div>
+          <div style="font-size:12px;opacity:0.8;">Train & master</div>
+        </div>
+        <div class="card clickable fade-in" style="background:linear-gradient(135deg,#5b21b6,#7c3aed);color:#fff;animation-delay:0.14s;" onclick="switchTab('voices')">
+          <div style="font-size:32px;margin-bottom:8px;">📚</div>
+          <div style="font-size:16px;font-weight:600;margin-bottom:3px;">Six Voices</div>
+          <div style="font-size:12px;opacity:0.6;">Apologist profiles</div>
+        </div>
+      </div>
+
+      <!-- Featured question -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span class="section-label" style="margin:0;">Featured Question</span>
+        <button onclick="randomFeatured()" style="font-size:12px;font-weight:600;color:var(--navy);border:none;background:none;cursor:pointer;">🎲 Shuffle</button>
+      </div>
+      <div id="featured-card" class="card clickable fade-in" style="animation-delay:0.16s;">
+        <p id="featured-q" class="serif" style="font-size:17px;font-weight:700;line-height:1.4;"></p>
+        <div id="featured-meta" style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;"></div>
+      </div>
+
+      <!-- Offline badge -->
+      <div style="margin-top:20px;text-align:center;padding-bottom:20px;">
+        <span id="offline-indicator" style="font-size:11px;color:var(--muted);display:inline-flex;align-items:center;gap:5px;">
+          <span style="width:7px;height:7px;border-radius:50%;background:#22c55e;display:inline-block;" class="pulse"></span>
+          Fully offline · No login needed
+        </span>
+      </div>
+    </div>
+
+    <!-- ── TAB: QUESTIONS ── -->
+    <div id="tab-questions" class="tab">
+      <h2 class="serif" style="font-size:26px;font-weight:700;margin-bottom:16px;">Objections &amp; Answers</h2>
+
+      <input id="q-search" class="search-input" placeholder="Search questions, apologists, topics…" oninput="renderQuestions()" style="margin-bottom:12px;">
+
+      <div class="pills-row" id="cat-pills"></div>
+
+      <div id="q-list"></div>
+    </div>
+
+    <!-- ── TAB: TACTICS ── -->
+    <div id="tab-tactics" class="tab">
+      <h2 class="serif" style="font-size:26px;font-weight:700;margin-bottom:4px;">Koukl's Tactics</h2>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:20px;">"Put a stone in their shoe." — Gregg Koukl</p>
+
+      <!-- Columbo core -->
+      <div class="card card-navy mb-4">
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.06em;opacity:0.5;margin-bottom:10px;">THE COLUMBO TACTIC</div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="background:var(--gold);color:var(--navy);border-radius:10px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">1</div>
+            <div>
+              <div style="font-weight:600;font-size:15px;margin-bottom:3px;">"What do you mean by that?"</div>
+              <div style="font-size:13px;opacity:0.7;">Clarify before you counter. You can't answer a vague claim.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="background:var(--gold);color:var(--navy);border-radius:10px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">2</div>
+            <div>
+              <div style="font-weight:600;font-size:15px;margin-bottom:3px;">"How did you come to that conclusion?"</div>
+              <div style="font-size:13px;opacity:0.7;">Shift the burden of proof back to the claimant.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="background:var(--gold);color:var(--navy);border-radius:10px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">3</div>
+            <div>
+              <div style="font-weight:600;font-size:15px;margin-bottom:3px;">"Have you considered…?"</div>
+              <div style="font-size:13px;opacity:0.7;">Gently introduce a fact, tension, or challenge.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Other tactics -->
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
+        <div class="card">
+          <div style="font-weight:700;font-size:16px;margin-bottom:6px;">🔄 Take the Roof Off</div>
+          <p style="font-size:14px;color:var(--muted);line-height:1.5;">Accept their premise temporarily and follow the logic to an absurd conclusion. Lewis + Koukl combo. "If morality is just social conditioning, why should I follow your morality?"</p>
+        </div>
+        <div class="card">
+          <div style="font-weight:700;font-size:16px;margin-bottom:6px;">💥 Suicide Tactics</div>
+          <p style="font-size:14px;color:var(--muted);line-height:1.5;">Statements that refute themselves: "There is no absolute truth" — is that absolutely true? "You can't know anything for certain" — are you certain?</p>
+        </div>
+        <div class="card">
+          <div style="font-weight:700;font-size:16px;margin-bottom:6px;">⚖️ Sibling Rivalry Tactic</div>
+          <p style="font-size:14px;color:var(--muted);line-height:1.5;">Show that the objection applies equally to competing worldviews. "You said Christians have done evil — but atheist regimes killed more people in 100 years than religion did in all history."</p>
+        </div>
+        <div class="card">
+          <div style="font-weight:700;font-size:16px;margin-bottom:6px;">🪞 Rhodes Tactic</div>
+          <p style="font-size:14px;color:var(--muted);line-height:1.5;">Ask them to defend their own worldview. "I'm curious — what do YOU think happens when we die?" Now you're listening, not defending.</p>
+        </div>
+      </div>
+
+      <!-- Mini game -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <span class="section-label" style="margin:0;">Columbo Practice</span>
+        <span id="tactic-score-label" style="font-size:12px;font-weight:600;color:var(--navy);">Score: 0</span>
+      </div>
+      <div id="tactic-game-area"></div>
+    </div>
+
+    <!-- ── TAB: QUIZ ── -->
+    <div id="tab-quiz" class="tab">
+      <h2 class="serif" style="font-size:26px;font-weight:700;margin-bottom:4px;">Quiz &amp; Training</h2>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:20px;">Tap the card to reveal the answer. Mark it mastered when you've got it.</p>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span id="quiz-counter" style="font-size:13px;color:var(--muted);">Question 1 of 60</span>
+        <button onclick="resetQuiz()" style="font-size:12px;font-weight:600;color:var(--navy);border:none;background:none;cursor:pointer;">↺ Restart</button>
+      </div>
+      <div class="quiz-progress-bar" style="margin-bottom:16px;">
+        <div class="quiz-progress-fill" id="quiz-bar" style="width:0%"></div>
+      </div>
+
+      <div id="quiz-card-area"></div>
+    </div>
+
+    <!-- ── TAB: VOICES ── -->
+    <div id="tab-voices" class="tab">
+      <h2 class="serif" style="font-size:26px;font-weight:700;margin-bottom:16px;">The Six Voices</h2>
+      <div id="voices-grid" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <!-- ── TAB: FAVORITES ── -->
+    <div id="tab-favorites" class="tab">
+      <h2 class="serif" style="font-size:26px;font-weight:700;margin-bottom:16px;">Saved Questions</h2>
+      <div id="fav-list"></div>
+      <div id="fav-empty" style="display:none;text-align:center;padding:40px 20px;">
+        <div style="font-size:48px;margin-bottom:12px;">⭐</div>
+        <p style="font-size:16px;font-weight:600;margin-bottom:6px;">No favorites yet</p>
+        <p style="font-size:13px;color:var(--muted);">Tap the ★ inside any question to save it here for quick review.</p>
+      </div>
+    </div>
+
+    <!-- ── TAB: SCRIPTURE ── -->
+    <div id="tab-scripture" class="tab">
+      <h2 class="serif" style="font-size:26px;font-weight:700;margin-bottom:16px;">Scripture Index</h2>
+      <input id="scripture-search" class="search-input" placeholder="Search references or keywords…" oninput="renderScriptures()" style="margin-bottom:16px;">
+      <div id="scripture-list"></div>
+    </div>
+
+  </div><!-- /#main -->
+
+  <!-- BOTTOM NAV -->
+  <nav id="bottom-nav">
+    <button class="nav-btn active" data-tab="home" onclick="switchTab('home')">
+      <span class="nav-icon">🏠</span>Home
+    </button>
+    <button class="nav-btn" data-tab="questions" onclick="switchTab('questions')">
+      <span class="nav-icon">❓</span>Q&amp;A
+    </button>
+    <button class="nav-btn" data-tab="quiz" onclick="switchTab('quiz')">
+      <span class="nav-icon">⚡</span>Quiz
+    </button>
+    <button class="nav-btn" data-tab="favorites" onclick="switchTab('favorites')">
+      <span class="nav-icon">⭐</span>Saved
+    </button>
+    <button class="nav-btn" data-tab="scripture" onclick="switchTab('scripture')">
+      <span class="nav-icon">📜</span>Verses
+    </button>
+  </nav>
+
+</div><!-- /#app -->
+
+<!-- QUESTION DETAIL MODAL -->
+<div class="modal-overlay" id="detail-modal" onclick="closeDetailIfBackdrop(event)">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div style="flex:1;">
+        <div id="modal-category" class="pill" style="margin-bottom:8px;"></div>
+        <p id="modal-q" class="serif" style="font-size:18px;font-weight:700;line-height:1.4;color:var(--charcoal);"></p>
+      </div>
+      <button onclick="closeDetail()" style="background:var(--warm);border:none;border-radius:50%;width:34px;height:34px;font-size:22px;cursor:pointer;flex-shrink:0;color:var(--muted);">×</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer">
+      <button id="fav-btn" class="btn btn-outline" style="flex:1;" onclick="toggleFav()">☆ Save</button>
+      <button class="btn btn-navy" style="flex:1;" onclick="copyAnswer()">📋 Copy Answer</button>
+    </div>
+  </div>
+</div>
+
+<!-- SEARCH MODAL -->
+<div class="modal-overlay" id="search-modal" onclick="if(event.target.id==='search-modal')closeSearch()">
+  <div class="modal-sheet" style="border-radius:28px;max-height:80svh;margin:20px;width:calc(100% - 40px);max-width:390px;">
+    <div style="padding:16px 16px 0;">
+      <input id="global-search" class="search-input" placeholder="Ask anything…" oninput="runGlobalSearch()" style="font-size:16px;">
+    </div>
+    <div id="global-results" style="padding:12px 16px 20px;overflow-y:auto;max-height:50svh;"></div>
+  </div>
+</div>
+
+<!-- APOLOGIST MODAL -->
+<div class="modal-overlay" id="ap-modal" onclick="if(event.target.id==='ap-modal')closeApModal()">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header" id="ap-modal-header"></div>
+    <div class="modal-body" id="ap-modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" style="flex:1;" onclick="closeApModal()">Close</button>
+      <button class="btn btn-navy" style="flex:1;" onclick="switchTab('questions');closeApModal()">See Questions</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+// ============================================================
+//  DATA — 60 questions from the six apologists
+// ============================================================
+const QUESTIONS = [
+  // ── RESURRECTION (8) ──────────────────────────────────────
+  {id:0,q:"Did Jesus really rise from the dead?",cat:"Resurrection",scriptures:["1 Cor 15:3-8","Acts 2:32","Rom 1:4"],responses:[
+    {who:"Gary Habermas",text:"Minimal Facts: 5 facts accepted by 90%+ of scholars — (1) Jesus died by crucifixion, (2) disciples sincerely believed He appeared to them, (3) Paul's dramatic conversion, (4) James' skeptic-to-martyr conversion, (5) the empty tomb. The best explanation of all five facts: bodily resurrection.",ref:"The Case for the Resurrection of Jesus (Habermas & Licona)"},
+    {who:"J. Warner Wallace",text:"I applied every cold-case investigative test to the Gospels: chain of custody, corroborating evidence, absence of motive to lie, and presence of embarrassing details. The Resurrection is the most reasonable inference from the evidence.",ref:"Cold-Case Christianity"},
+    {who:"Lee Strobel",text:"As a former atheist journalist I subjected the Resurrection to the harshest scrutiny. The evidence is stronger than for many criminal convictions. The disciples went to their deaths for this — liars don't make great martyrs.",ref:"The Case for Christ"}
+  ]},
+  {id:1,q:"The resurrection is just a legend that grew over time.",cat:"Resurrection",scriptures:["1 Cor 15:3-5","Gal 1:18-19"],responses:[
+    {who:"Gary Habermas",text:"The creed in 1 Corinthians 15:3-8 dates to within 2–5 years of the crucifixion — Paul received it from Peter and James. Legends require generations. The time gap is simply too short.",ref:"The Historical Jesus"},
+    {who:"J. Warner Wallace",text:"The Gospels contain first-century Palestinian details (place names, customs, coinage) that a legend fabricated later wouldn't need. The embarrassing details — women as first witnesses, disciples hiding in fear — are hallmarks of accurate reporting, not legend.",ref:"Cold-Case Christianity"}
+  ]},
+  {id:2,q:"The disciples were hallucinating the risen Jesus.",cat:"Resurrection",scriptures:["Luke 24:36-43","1 Cor 15:6"],responses:[
+    {who:"Gary Habermas",text:"Group hallucinations are psychologically impossible. Over 500 people saw the risen Jesus at once (1 Cor 15:6). Hallucinations are subjective, individual experiences — they cannot be shared simultaneously.",ref:"The Case for the Resurrection of Jesus"},
+    {who:"Frank Turek",text:"Even if the disciples hallucinated, the Jewish authorities could have produced the body and stopped Christianity in its tracks. The empty tomb cannot be explained away by hallucinations.",ref:"I Don't Have Enough Faith to Be an Atheist"}
+  ]},
+  {id:3,q:"The disciples stole the body and made up the resurrection.",cat:"Resurrection",scriptures:["Matt 28:12-15","Acts 5:27-42"],responses:[
+    {who:"J. Warner Wallace",text:"A conspiracy of this scale — involving 12+ people who suffered persecution, flogging, imprisonment, and death — is historically implausible. People lie for gain; these men gained nothing but suffering. Conspiracies collapse under pressure.",ref:"Cold-Case Christianity"},
+    {who:"Gregg Koukl",text:"Ask: 'If they stole the body, why would every single one of them go to their deaths rather than recant?' A lie needs a motive and a payoff. There was none.",ref:"Tactics"}
+  ]},
+  {id:4,q:"Jesus didn't really die on the cross — He swooned.",cat:"Resurrection",scriptures:["John 19:34","Mark 15:44-45"],responses:[
+    {who:"Gary Habermas",text:"Roman soldiers were experts at execution. The spear to Jesus' side — producing blood and water — is consistent with cardiac rupture. Even the skeptical Journal of the American Medical Association concluded He was clinically dead.",ref:"The Historical Jesus"},
+    {who:"Lee Strobel",text:"Even if Jesus survived crucifixion and a sealed tomb, a half-dead man dragging himself out would not inspire 'He is risen!' — it would inspire pity. The disciples needed a resurrection, not a resuscitation.",ref:"The Case for Christ"}
+  ]},
+  {id:5,q:"Paul invented the resurrection story.",cat:"Resurrection",scriptures:["Gal 1:11-19","1 Cor 15:3-8"],responses:[
+    {who:"Gary Habermas",text:"Paul explicitly says he received the creed from Peter and James (Gal 1:18-19), within 3-5 years of the crucifixion. He did not invent it — he passed on pre-existing, verified tradition.",ref:"The Case for the Resurrection of Jesus"}
+  ]},
+  {id:6,q:"The women went to the wrong tomb.",cat:"Resurrection",scriptures:["Mark 16:1-6","John 20:1-18"],responses:[
+    {who:"J. Warner Wallace",text:"This 'wrong tomb' theory was never proposed in antiquity — because the Jewish authorities knew exactly where Jesus was buried (they sealed it). They could have pointed to the right tomb immediately. They didn't — because it was empty.",ref:"Cold-Case Christianity"}
+  ]},
+  {id:7,q:"The resurrection appearances were spiritual visions, not physical.",cat:"Resurrection",scriptures:["Luke 24:39","John 20:27"],responses:[
+    {who:"Gary Habermas",text:"Luke explicitly has Jesus say 'Touch me and see — a spirit does not have flesh and bones as I do.' He ate fish. Thomas touched the wounds. The Greek word 'ophthe' (appeared) in the creed does not require a vision — it's the same word used for Moses appearing at the Transfiguration.",ref:"The Case for the Resurrection of Jesus"}
+  ]},
+
+  // ── EXISTENCE OF GOD (6) ──────────────────────────────────
+  {id:8,q:"How do you know God exists?",cat:"Existence of God",scriptures:["Rom 1:20","Ps 19:1"],responses:[
+    {who:"Frank Turek",text:"SURGE: Space/time/matter had a beginning (Big Bang). Universe is fine-tuned (cosmological constants). Regularity of nature assumes a Lawgiver. Genetic information implies intelligence. Existence of objective morality requires a moral Lawgiver. Each S.U.R.G.E. independently points to God.",ref:"I Don't Have Enough Faith to Be an Atheist"},
+    {who:"C.S. Lewis",text:"Every human being has an intuition of objective right and wrong. If the universe is all there is, there is no such thing as genuinely wrong. We can't help appealing to a standard beyond ourselves — that standard is God.",ref:"Mere Christianity"}
+  ]},
+  {id:9,q:"The universe could have come from nothing.",cat:"Existence of God",scriptures:["Gen 1:1","Heb 11:3"],responses:[
+    {who:"Frank Turek",text:"'Nothing' means no space, no time, no energy, no matter, no laws of physics. Quantum vacuums are something. Lawrence Krauss's 'nothing' is actually a quantum field — that's cheating. Out of true nothing, only nothing comes.",ref:"I Don't Have Enough Faith to Be an Atheist"},
+    {who:"Gregg Koukl",text:"Ask: 'What do you mean by nothing?' Every philosopher and physicist means something different. True metaphysical nothing cannot produce anything — that's the definition of nothing.",ref:"Tactics"}
+  ]},
+  {id:10,q:"Science has disproven God.",cat:"Existence of God",scriptures:["Gen 1:1","Col 1:16-17"],responses:[
+    {who:"Frank Turek",text:"Science can't disprove God any more than a metal detector can detect music. Science studies natural causes — by definition it cannot rule out supernatural ones. This is a category error.",ref:"Stealing from God"},
+    {who:"C.S. Lewis",text:"Science depends on a universe that is orderly, rational, and intelligible. That's exactly what you'd expect if a rational God created it. Science itself presupposes theistic assumptions.",ref:"Miracles"}
+  ]},
+  {id:11,q:"Who created God?",cat:"Existence of God",scriptures:["Rev 1:8","Ps 90:2"],responses:[
+    {who:"Frank Turek",text:"The cosmological argument only needs a first cause for everything that began to exist. God by definition did not begin to exist — He is eternal and uncaused. Asking 'Who made God?' is like asking 'What's north of the North Pole?'",ref:"I Don't Have Enough Faith to Be an Atheist"}
+  ]},
+  {id:12,q:"The universe is fine-tuned by chance, not God.",cat:"Existence of God",scriptures:["Ps 104:24"],responses:[
+    {who:"Frank Turek",text:"The odds that the cosmological constants (gravity, strong nuclear force, electromagnetic force) would all align to permit life are astronomically small — physicists like Roger Penrose calculate 1 in 10^10^123. Chance doesn't explain it; a Designer does.",ref:"I Don't Have Enough Faith to Be an Atheist"},
+    {who:"Lee Strobel",text:"Astronomer Guillermo Gonzalez showed that Earth's position, moon size, and solar system placement are each improbable — and together constitute a designed habitat for life.",ref:"The Case for a Creator"}
+  ]},
+  {id:13,q:"If God exists, why doesn't He just show Himself?",cat:"Existence of God",scriptures:["John 20:29","Heb 11:6"],responses:[
+    {who:"C.S. Lewis",text:"God is not hiding — the evidence in creation, conscience, and Scripture is everywhere. But He will not compel belief. Love requires freedom, and freedom requires the possibility of unbelief.",ref:"Mere Christianity"},
+    {who:"Gregg Koukl",text:"He did show Himself — in the person of Jesus Christ. The question isn't whether God has revealed Himself, but whether people will look at the evidence honestly.",ref:"Tactics"}
+  ]},
+
+  // ── PROBLEM OF EVIL (4) ───────────────────────────────────
+  {id:14,q:"What about the problem of evil and suffering?",cat:"Problem of Evil",scriptures:["Rom 8:28","Job 42:2"],responses:[
+    {who:"C.S. Lewis",text:"Pain is God's megaphone to rouse a deaf world. Free will is required for love, and free will opens the door to evil. The world is a soul-making place, not a pleasure palace.",ref:"The Problem of Pain"},
+    {who:"Frank Turek",text:"The atheist can't even use this argument: if God doesn't exist, there is no objective evil. You're borrowing a theistic concept — objective moral standards — to argue against theism.",ref:"Stealing from God"}
+  ]},
+  {id:15,q:"Why does God allow innocent children to suffer?",cat:"Problem of Evil",scriptures:["Matt 18:10","Rom 5:3-4"],responses:[
+    {who:"C.S. Lewis",text:"We see suffering from inside time. God sees it from eternity, where He is able to bring good from it. This doesn't remove the pain — but it means it isn't meaningless.",ref:"The Problem of Pain"},
+    {who:"Gary Habermas",text:"I lost my wife to cancer. I don't have a philosophical answer for every case — but I know the risen Jesus cried at Lazarus's tomb and promises to wipe away every tear. The resurrection is the ultimate answer to suffering.",ref:"Personal testimony & scholarship"}
+  ]},
+  {id:16,q:"The Holocaust disproves a good God.",cat:"Problem of Evil",scriptures:["Lam 3:22-23","Rev 21:4"],responses:[
+    {who:"Frank Turek",text:"Without God, the Holocaust wasn't evil — it was just one species' preference over another. The only way to call it objectively evil is to appeal to a moral standard that transcends Hitler and transcends us. That standard is God.",ref:"Stealing from God"}
+  ]},
+  {id:17,q:"Natural disasters prove God is either not good or not powerful.",cat:"Problem of Evil",scriptures:["Gen 3:17-18","Rom 8:20-22"],responses:[
+    {who:"C.S. Lewis",text:"The world was not always like this. The Fall introduced decay into nature itself (Romans 8). Natural evil is the consequence of a moral fall — not a reflection of God's desired order.",ref:"The Problem of Pain"}
+  ]},
+
+  // ── BIBLE RELIABILITY (6) ─────────────────────────────────
+  {id:18,q:"Isn't the Bible full of contradictions?",cat:"Bible Reliability",scriptures:["2 Tim 3:16","John 10:35"],responses:[
+    {who:"J. Warner Wallace",text:"I examined over 900 alleged contradictions in seminary. Every one I've studied has a plausible harmonization when read in context. Differences in the Gospel accounts are signs of independent eyewitness testimony — not collusion.",ref:"Cold-Case Christianity"},
+    {who:"Lee Strobel",text:"Every alleged contradiction I investigated had a reasonable explanation once I understood the genre, original language, and historical context. Context is everything in textual interpretation.",ref:"The Case for Christ"}
+  ]},
+  {id:19,q:"The Bible has been changed and corrupted over time.",cat:"Bible Reliability",scriptures:["Isa 40:8","1 Pet 1:25"],responses:[
+    {who:"J. Warner Wallace",text:"We have 5,800+ Greek New Testament manuscripts — far more than any other ancient document. Textual variants are real but minor, and no core doctrine depends on a disputed passage. This is the most textually supported ancient document in history.",ref:"Cold-Case Christianity"},
+    {who:"Lee Strobel",text:"Scholar Bruce Metzger confirmed to me that we can reconstruct 99.5% of the original text from manuscripts, with no theologically significant issue left in doubt.",ref:"The Case for Christ"}
+  ]},
+  {id:20,q:"Bart Ehrman says the Bible is unreliable — scribes changed it.",cat:"Bible Reliability",scriptures:["Matt 5:18"],responses:[
+    {who:"J. Warner Wallace",text:"Ehrman himself admits we can reconstruct what the originals said from the manuscript tradition. His own mentor Bruce Metzger — whom he cites with praise — was a committed Christian. The changes Ehrman documents are minor spelling variants and margin notes, not theological tampering.",ref:"Cold-Case Christianity"},
+    {who:"Frank Turek",text:"Ehrman complains that scribes changed the text — which actually proves scribes existed and copied carefully. The very existence of variants in our manuscripts means we can identify and remove errors to recover the original.",ref:"I Don't Have Enough Faith to Be an Atheist"}
+  ]},
+  {id:21,q:"The Gospels were written too late to be reliable.",cat:"Bible Reliability",scriptures:["Luke 1:1-4","Acts 1:1-3"],responses:[
+    {who:"J. Warner Wallace",text:"Mark was written by the mid-50s at the latest — within 20 years of the events, when eyewitnesses were still alive. Luke references earlier accounts (Luke 1:1) and his Acts ends before Paul's death in 64 AD, suggesting Acts was written ~62 AD and Luke earlier still.",ref:"Cold-Case Christianity"}
+  ]},
+  {id:22,q:"Archaeology disproves the Bible.",cat:"Bible Reliability",scriptures:["Luke 19:43-44"],responses:[
+    {who:"Lee Strobel",text:"The opposite is true. The Pool of Siloam, the Caiaphas ossuary, the Tel Dan inscription ('House of David'), Pontius Pilate's inscription at Caesarea Maritima, and the Hezekiah's Tunnel — archaeology keeps confirming biblical details that critics once called myths.",ref:"The Case for Christ"}
+  ]},
+  {id:23,q:"The canon was chosen arbitrarily at the Council of Nicaea.",cat:"Bible Reliability",scriptures:["2 Pet 1:20-21"],responses:[
+    {who:"J. Warner Wallace",text:"The Council of Nicaea (325 AD) discussed the nature of Christ — not the canon. The NT canon was functionally recognized centuries earlier based on apostolicity, consistency with existing teaching, and broad church acceptance. Nicaea didn't create the canon.",ref:"Cold-Case Christianity"}
+  ]},
+
+  // ── JESUS (6) ─────────────────────────────────────────────
+  {id:24,q:"Jesus never claimed to be God.",cat:"Jesus",scriptures:["John 8:58","John 10:30","Mark 14:61-64"],responses:[
+    {who:"C.S. Lewis",text:"Trilemma: Jesus claimed to forgive sins — something only God can do. He accepted worship. He called Himself 'I AM.' The Jewish authorities understood exactly what He was claiming — and tried to stone Him for blasphemy.",ref:"Mere Christianity"},
+    {who:"Gregg Koukl",text:"Ask: 'What do you mean by that?' Then walk through John 8:58, John 10:30, John 14:9, and Mark 14:62. The high priest tore his robes at the blasphemy — he understood the claim.",ref:"Tactics"}
+  ]},
+  {id:25,q:"Jesus was just a great moral teacher.",cat:"Jesus",scriptures:["John 11:25","Mark 2:5-7"],responses:[
+    {who:"C.S. Lewis",text:"That's the one option not open to us. A man who says the things Jesus said — forgiving sins, claiming to judge the world — is either God, a liar, or a lunatic. There is no mild and sensible option. We must make a choice.",ref:"Mere Christianity"}
+  ]},
+  {id:26,q:"Christianity is just a copy of pagan myths (Osiris, Horus, Mithras).",cat:"Jesus",scriptures:["1 Cor 15:3-4","Heb 1:1-2"],responses:[
+    {who:"Lee Strobel",text:"The alleged parallels are wildly exaggerated. Osiris wasn't resurrected in any meaningful sense — his body was scattered. Mithras was a cosmic figure, not a historical person. The differences are more significant than the superficial similarities, and the Resurrection is rooted in Judaism, not paganism.",ref:"The Case for Christ"},
+    {who:"J. Warner Wallace",text:"The timing problem destroys this theory: most 'parallel' details were added to pagan myths after Christianity spread — borrowing runs the other way.",ref:"Cold-Case Christianity"}
+  ]},
+  {id:27,q:"The historical Jesus never existed.",cat:"Jesus",scriptures:["Gal 1:18-19","1 Cor 15:3-7"],responses:[
+    {who:"Gary Habermas",text:"The mythicist position is rejected by virtually every secular historian of antiquity. Tacitus, Josephus, Pliny the Younger, Suetonius — all mention Jesus as a historical figure, independent of Christian sources.",ref:"The Historical Jesus"},
+    {who:"J. Warner Wallace",text:"The evidence for Jesus as a historical figure is stronger than for many other accepted historical persons of the same era.",ref:"Cold-Case Christianity"}
+  ]},
+  {id:28,q:"The virgin birth is borrowed from mythology.",cat:"Jesus",scriptures:["Isa 7:14","Matt 1:18-25"],responses:[
+    {who:"Frank Turek",text:"The so-called pagan parallels involve the gods physically fathering children through intercourse — completely unlike the Holy Spirit 'overshadowing' Mary. Isaiah 7:14 predicted a miraculous birth 700 years before Christ. This is fulfilled prophecy, not borrowed myth.",ref:"I Don't Have Enough Faith to Be an Atheist"}
+  ]},
+  {id:29,q:"Jesus was married to Mary Magdalene (The Da Vinci Code claim).",cat:"Jesus",scriptures:["John 20:11-18"],responses:[
+    {who:"J. Warner Wallace",text:"This comes from Gnostic texts written 150-300 years after Christ — not eyewitness accounts. No early source, including hostile ones, ever makes this claim. The Gospel of Philip, often cited, is a 3rd century Gnostic fantasy.",ref:"Cold-Case Christianity"}
+  ]},
+
+  // ── SCIENCE & FAITH (5) ───────────────────────────────────
+  {id:30,q:"Evolution explains everything — no need for God.",cat:"Science & Faith",scriptures:["Gen 1:1","Ps 139:14"],responses:[
+    {who:"Frank Turek",text:"Even if evolution is entirely true, it only explains the diversity of life — not the origin of life, the first self-replicating molecule, the fine-tuned laws of physics that make evolution possible, or consciousness itself. God and evolution are not mutually exclusive.",ref:"I Don't Have Enough Faith to Be an Atheist"}
+  ]},
+  {id:31,q:"What about dinosaurs and the age of the earth?",cat:"Science & Faith",scriptures:["Gen 1:1","Job 40:15-18"],responses:[
+    {who:"Frank Turek",text:"The age-of-earth debate is an in-house Christian discussion. Old-earth and young-earth Christians both affirm creation by God. Dinosaurs fit perfectly in either framework — they existed, they died out, and their fossil record confirms the biblical picture of a world under God's sovereign design.",ref:"I Don't Have Enough Faith to Be an Atheist"},
+    {who:"Gregg Koukl",text:"The Bible doesn't give us a specific age for the earth. Old-earth creationism is not a compromise of Scripture — it's an interpretive question about the Hebrew word 'yom.' Focus on what's certain: God created everything that exists.",ref:"Tactics"}
+  ]},
+  {id:32,q:"Science requires methodological naturalism — God can't be scientific.",cat:"Science & Faith",scriptures:["Col 1:17"],responses:[
+    {who:"Frank Turek",text:"Methodological naturalism is a working assumption, not a proven truth. If God actually raised Jesus from the dead, then methodological naturalism would lead us to the wrong answer. The method doesn't get to veto the evidence.",ref:"Stealing from God"}
+  ]},
+  {id:33,q:"Consciousness is just brain chemistry — no soul.",cat:"Science & Faith",scriptures:["Gen 2:7","Zech 12:1"],responses:[
+    {who:"Frank Turek",text:"Neuroscience maps what the brain does — it cannot explain why there is subjective experience at all. This is the 'hard problem of consciousness.' If the mind were nothing but physical matter, we would have no reason to trust our reasoning — which undermines science itself.",ref:"Stealing from God"}
+  ]},
+  {id:34,q:"Genesis conflicts with the Big Bang — one must be wrong.",cat:"Science & Faith",scriptures:["Gen 1:1","Heb 11:3"],responses:[
+    {who:"Frank Turek",text:"The Big Bang actually supports Genesis: the universe had a beginning. Before the Big Bang, there was no space, no time, no matter — just like 'In the beginning.' Atheists used to prefer an eternal universe; now they must explain a beginning.",ref:"I Don't Have Enough Faith to Be an Atheist"}
+  ]},
+
+  // ── BIBLE DIFFICULTIES (5) ────────────────────────────────
+  {id:35,q:"The Bible endorses slavery.",cat:"Bible Difficulties",scriptures:["Gal 3:28","Philemon 1:16","1 Cor 7:21"],responses:[
+    {who:"Frank Turek",text:"Old Testament slavery was largely debt-servitude (a form of bankruptcy protection) and radically different from chattel slavery. The New Testament contains the seeds that dismantled it: Philemon tells a slave owner to receive his runaway slave 'as a dear brother.' William Wilberforce used Scripture to abolish the slave trade.",ref:"Stealing from God"},
+    {who:"Gregg Koukl",text:"Ask: 'What kind of slavery are you referring to?' Ancient near eastern slavery, debt slavery, war slavery, and chattel slavery are all very different things. The Torah had stronger worker protections than most ancient cultures.",ref:"Tactics"}
+  ]},
+  {id:36,q:"The Old Testament God commanded genocide (Canaanites).",cat:"Bible Difficulties",scriptures:["Deut 9:4-5","Gen 15:16"],responses:[
+    {who:"Frank Turek",text:"God waited 400 years (Gen 15:16) while the Canaanites' sin 'reached its full measure.' The Canaanites practiced child sacrifice by burning, ritual prostitution, and extreme brutality. This was judgment — carried out once, in history, with specific stated reasons. It was not a general mandate.",ref:"Stealing from God"},
+    {who:"C.S. Lewis",text:"I have never claimed the OT picture of God is perfectly comfortable. But if God exists, He owns all life — giving and taking it is within His nature as Creator, not a violation of it.",ref:"Reflections on the Psalms"}
+  ]},
+  {id:37,q:"Where did Cain get his wife?",cat:"Bible Difficulties",scriptures:["Gen 5:4"],responses:[
+    {who:"Frank Turek",text:"Genesis 5:4 says Adam and Eve had other sons and daughters. Early humans married siblings — genetic defects accumulate over generations, which is why Moses later prohibited such marriages. It's an unusual question today but presents no real problem in context.",ref:"I Don't Have Enough Faith to Be an Atheist"}
+  ]},
+  {id:38,q:"God ordered Abraham to kill his son — that's monstrous.",cat:"Bible Difficulties",scriptures:["Gen 22:1-18","Heb 11:19"],responses:[
+    {who:"Gregg Koukl",text:"Abraham believed God would raise Isaac from the dead (Heb 11:19 — the earliest resurrection theology in Scripture). God stopped Abraham before it happened — the point was testing faith, and God Himself provided the substitute. This is a picture of the cross, not an endorsement of child sacrifice.",ref:"Tactics"},
+    {who:"C.S. Lewis",text:"The Akedah is a progressive revelation: God was teaching Abraham (and us) that He doesn't want human sacrifice — and pointing forward to the day when He would offer His own Son.",ref:"The Problem of Pain"}
+  ]},
+  {id:39,q:"The Bible treats women as property.",cat:"Bible Difficulties",scriptures:["Gal 3:28","Prov 31","Luke 8:1-3"],responses:[
+    {who:"Frank Turek",text:"Jesus radically elevated the status of women in a culture that dismissed them. Women were the first witnesses to the resurrection — if the Gospels were fabricated, no Jewish author would have chosen women as the primary witnesses. Their testimony would have been dismissed in court.",ref:"I Don't Have Enough Faith to Be an Atheist"},
+    {who:"J. Warner Wallace",text:"The Proverbs 31 woman owns property, runs a business, and is praised for her mind. Paul declares 'neither male nor female' in Christ (Gal 3:28). The trajectory of Scripture elevates, not demeans, women.",ref:"Cold-Case Christianity"}
+  ]},
+
+  // ── FAITH & REASON (4) ────────────────────────────────────
+  {id:40,q:"Faith is blind — it's believing without evidence.",cat:"Faith & Reason",scriptures:["Heb 11:1","1 Pet 3:15","Acts 17:2"],responses:[
+    {who:"Gregg Koukl",text:"The biblical word 'pistis' (faith) means trust based on evidence — not credulity. Jesus gave evidence for His resurrection. Paul 'reasoned' with people in the synagogues (Acts 17). The Bible never asks for belief in spite of evidence.",ref:"Tactics"},
+    {who:"C.S. Lewis",text:"I am not asking anyone to accept Christianity if the evidence doesn't support it. But I do ask people to look at the evidence honestly — faith is reason carried to its proper conclusion.",ref:"Mere Christianity"}
+  ]},
+  {id:41,q:"You only believe because you were raised Christian.",cat:"Faith & Reason",scriptures:["Rom 12:2","Acts 17:11"],responses:[
+    {who:"Frank Turek",text:"This is the genetic fallacy — dismissing a belief because of its origin rather than its content. I could say you only disbelieve because of your upbringing. The real question is: are the arguments good? Are the resurrection appearances real? Origins don't determine truth.",ref:"I Don't Have Enough Faith to Be an Atheist"},
+    {who:"Lee Strobel",text:"I was raised in a non-religious home and came to faith through investigation as an adult. Origin explains how you got a belief — it doesn't prove or disprove it.",ref:"The Case for Christ"}
+  ]},
+  {id:42,q:"Religion is just a crutch for weak people.",cat:"Faith & Reason",scriptures:["2 Cor 12:10","Phil 4:13"],responses:[
+    {who:"Gregg Koukl",text:"This is an ad hominem, not an argument. Even if faith comforts people, that says nothing about whether it's true. Insulin is a crutch for diabetics — that doesn't mean insulin doesn't exist.",ref:"Tactics"},
+    {who:"C.S. Lewis",text:"The charge proves too much. I came to Christianity kicking and screaming — it was the most uncomfortable thing in my life. I was brought in by argument, not comfort.",ref:"Surprised by Joy"}
+  ]},
+  {id:43,q:"I used to be a Christian but I deconstructed — the church failed me.",cat:"Faith & Reason",scriptures:["John 6:66-68","Heb 10:25"],responses:[
+    {who:"Gregg Koukl",text:"I'm genuinely sorry the church let you down. But notice: you may have reasons to be angry at people — but that's separate from whether the resurrection happened. The evidence for Jesus doesn't change because someone treated you poorly.",ref:"Tactics"},
+    {who:"Gary Habermas",text:"Deconstruction stories often involve wounds from community or moral disappointment — not defeat by argument. When I challenge skeptics on the minimal facts, the evidence for the resurrection remains intact regardless of church failures.",ref:"Personal testimony"}
+  ]},
+
+  // ── WORLDVIEW & CULTURE (6) ───────────────────────────────
+  {id:44,q:"Why is there only one true religion? That's arrogant.",cat:"Worldview & Culture",scriptures:["John 14:6","Acts 4:12"],responses:[
+    {who:"Gregg Koukl",text:"Every worldview — including atheism — claims to have the truth. The question isn't whether we can make exclusive claims; everyone does. The question is which exclusive claims have the best evidence. That's not arrogance; it's epistemology.",ref:"Tactics"},
+    {who:"Frank Turek",text:"All religions teach contradictory things about God, salvation, and reality — they cannot all be true. The question is which one best matches the evidence. Arrogance would be claiming without evidence; we're claiming with it.",ref:"I Don't Have Enough Faith to Be an Atheist"}
+  ]},
+  {id:45,q:"What about people who've never heard the Gospel?",cat:"Worldview & Culture",scriptures:["Rom 1:20","Rom 2:14-15","Acts 17:26-27"],responses:[
+    {who:"Gregg Koukl",text:"God will not condemn someone for rejecting a message they never heard. Romans 1-2 indicates everyone has received general revelation (creation and conscience). God is the perfect Judge — He will not be unjust to anyone.",ref:"Tactics"},
+    {who:"Frank Turek",text:"The question assumes God isn't fair. But a God of perfect justice will judge people by what they had access to. Our job is not to worry about those who haven't heard — but to make sure they do.",ref:"I Don't Have Enough Faith to Be an Atheist"}
+  ]},
+  {id:46,q:"Hell is unjust and unloving.",cat:"Worldview & Culture",scriptures:["Matt 25:46","2 Thess 1:9"],responses:[
+    {who:"C.S. Lewis",text:"There are only two kinds of people: those who say to God 'Thy will be done,' and those to whom God says 'Thy will be done.' Hell is the supreme expression of human free will — God honors their choice.",ref:"The Great Divorce"},
+    {who:"Frank Turek",text:"Hell is not God torturing reluctant victims — it's God granting people exactly what they demanded: a life without Him. That separation is its own destruction.",ref:"I Don't Have Enough Faith to Be an Atheist"}
+  ]},
+  {id:47,q:"Isn't Christianity intolerant of LGBTQ people?",cat:"Worldview & Culture",scriptures:["John 8:11","Rom 5:8","1 Cor 6:9-11"],responses:[
+    {who:"Gregg Koukl",text:"Christianity teaches that all people are made in God's image and infinitely loved by God. Disagreeing with someone's behavior is not hatred — parents do it with their children constantly out of love. The church is called to speak truth and love simultaneously.",ref:"Tactics"},
+    {who:"Frank Turek",text:"Every worldview has sexual ethics it considers authoritative. The question is whose sexual ethic is true, and why. We don't call people intolerant for believing other sexual behaviors are harmful — that's just having a standard.",ref:"Correct, Not Politically Correct"}
+  ]},
+  {id:48,q:"Miracles violate the laws of nature — they're impossible.",cat:"Worldview & Culture",scriptures:["John 2:11","Acts 2:22"],responses:[
+    {who:"C.S. Lewis",text:"Miracles are not violations of natural law — they are interventions by the God who created natural law. The laws describe what happens when nothing interferes from outside; they don't rule out a God who can act in His own creation.",ref:"Miracles"},
+    {who:"Frank Turek",text:"The laws of nature describe regular processes. They don't have causal power to prevent an external agent from acting. If God exists, miracles are possible by definition.",ref:"I Don't Have Enough Faith to Be an Atheist"}
+  ]},
+  {id:49,q:"Other religions have miracles too — why is Christianity special?",cat:"Worldview & Culture",scriptures:["1 Cor 15:6","Acts 1:3"],responses:[
+    {who:"Gary Habermas",text:"The resurrection of Jesus is unique: it happened in history, to a specific identified person, was attested by named eyewitnesses within years of the event, and was surrounded by a radical change in the disciples that cost them everything. No other religious miracle claim comes close in historical quality.",ref:"The Case for the Resurrection of Jesus"},
+    {who:"J. Warner Wallace",text:"As a detective I evaluate miracle claims the same way I evaluate any claim: specificity, corroboration, eyewitness accounts, and physical evidence. The resurrection passes every test.",ref:"Cold-Case Christianity"}
+  ]},
+
+  // ── THEOLOGY (5) ──────────────────────────────────────────
+  {id:50,q:"Why believe the Trinity? It doesn't make sense.",cat:"Theology",scriptures:["Matt 28:19","2 Cor 13:14","John 1:1"],responses:[
+    {who:"C.S. Lewis",text:"In God's dimension, you can have three Persons in one Being — just as a cube has six squares in one object. It's not a contradiction; it's a reality higher than our experience. The Trinity explains why a God of love existed before creation — He was always loving within Himself.",ref:"Mere Christianity"}
+  ]},
+  {id:51,q:"I'm a good person — that should be enough for God.",cat:"Theology",scriptures:["Rom 3:23","Eph 2:8-9","Isa 64:6"],responses:[
+    {who:"C.S. Lewis",text:"Compared to whom? The moment you compare yourself to God's standard rather than the person next to you, the game changes. The Christian way is different: not 'be good enough,' but 'admit you aren't and accept the payment Christ made.'",ref:"Mere Christianity"},
+    {who:"Frank Turek",text:"If good works were enough, the cross was unnecessary. God doesn't grade on a curve — His standard is perfection. That's why grace through Christ is the only answer.",ref:"I Don't Have Enough Faith to Be an Atheist"}
+  ]},
+  {id:52,q:"A loving God wouldn't send people to hell.",cat:"Theology",scriptures:["John 3:16-18","2 Pet 3:9"],responses:[
+    {who:"C.S. Lewis",text:"God sends no one to hell — people go there by choosing themselves over God consistently, finally, and completely. God respects human dignity enough to honor their ultimate choice.",ref:"The Great Divorce"},
+    {who:"Gregg Koukl",text:"Notice: the objection requires a standard of love. Where does that standard come from? If it's just your preference, it carries no weight. If it's objective, you've just smuggled God into your argument against God.",ref:"Tactics"}
+  ]},
+  {id:53,q:"Prayer doesn't work — God doesn't answer.",cat:"Theology",scriptures:["Matt 7:7-8","James 5:16","1 John 5:14"],responses:[
+    {who:"C.S. Lewis",text:"It's not that prayer changes God — it changes us, and it participates in what God is already doing. God could have made a world where our prayers didn't matter; He chose not to.",ref:"Letters to Malcolm"},
+    {who:"Gregg Koukl",text:"Ask: 'What would it take to convince you that prayer works?' If there's no possible answer, you're not reasoning — you've already decided. Thousands of documented answered prayers deserve honest evaluation.",ref:"Tactics"}
+  ]},
+  {id:54,q:"The Crusades and Inquisition prove Christianity is evil.",cat:"Theology",scriptures:["Matt 7:21-23","John 13:34-35"],responses:[
+    {who:"Frank Turek",text:"Those who killed in Christ's name disobeyed Christ's explicit commands. Jesus said love your enemies. The Crusades and Inquisition are violations of Christianity, not expressions of it. You can't judge a teaching by its abuses.",ref:"Stealing from God"},
+    {who:"Gregg Koukl",text:"If bad behavior by Christians disproves Christianity, then bad behavior by atheists (Stalin, Mao) disproves atheism. The argument proves too much. Judge the teaching on its own terms.",ref:"Tactics"}
+  ]},
+
+  // ── SALVATION (4) ─────────────────────────────────────────
+  {id:55,q:"How can one man's death 2,000 years ago save me today?",cat:"Salvation",scriptures:["Rom 5:8","Isa 53:5","1 Pet 2:24"],responses:[
+    {who:"C.S. Lewis",text:"Moral debts are real. If one person can take another's punishment (substitution) — which happens in human courts — then God in human flesh can bear the infinite weight of sin. The question is whether you'll accept the pardon.",ref:"Mere Christianity"},
+    {who:"Frank Turek",text:"Substitutionary atonement isn't a primitive idea — it's a sophisticated moral transaction. God's justice required the penalty be paid. God's love provided the payment Himself in Christ.",ref:"I Don't Have Enough Faith to Be an Atheist"}
+  ]},
+  {id:56,q:"I don't need forgiveness — I haven't done anything that bad.",cat:"Salvation",scriptures:["Rom 3:23","Luke 15:11-32","James 2:10"],responses:[
+    {who:"Gregg Koukl",text:"Compared to what standard? Your own? Or God's? Compared to God's standard of perfection, every human being has fallen drastically short. The good news is that's exactly why grace exists — not because we're bad enough, but because He's good enough.",ref:"Tactics"}
+  ]},
+  {id:57,q:"What happens to babies who die? Are they condemned?",cat:"Salvation",scriptures:["2 Sam 12:23","Matt 18:3","Rom 5:18-19"],responses:[
+    {who:"Frank Turek",text:"Theologians across traditions generally affirm that those who cannot believe — infants, the severely intellectually disabled — are covered by Christ's atonement. God's justice cannot condemn those incapable of moral choice.",ref:"I Don't Have Enough Faith to Be an Atheist"}
+  ]},
+  {id:58,q:"Can I lose my salvation?",cat:"Salvation",scriptures:["John 10:28-30","Phil 1:6","Rom 8:38-39"],responses:[
+    {who:"Gregg Koukl",text:"The debate is real within Christianity. But notice: even Arminians agree salvation is never lost through one bad act — it's a matter of sustained rejection. Calvinists emphasize God's faithfulness. Both agree: if you genuinely trust Christ, you have reason for assurance.",ref:"Tactics"}
+  ]},
+
+  // ── MORALITY (3) ──────────────────────────────────────────
+  {id:59,q:"You don't need God to be moral.",cat:"Morality",scriptures:["Rom 2:14-15","Micah 6:8"],responses:[
+    {who:"Frank Turek",text:"Agreed — you don't need to believe in God to behave morally. But you do need God to exist for morality to be objective. Without God, 'murder is wrong' is just a personal or social preference — no more binding than 'chocolate ice cream is best.'",ref:"Stealing from God"},
+    {who:"C.S. Lewis",text:"The Moral Argument: We all appeal to a standard beyond ourselves — 'You promised,' 'That's not fair.' This universal sense of oughtness points to a Moral Lawgiver who exists independently of us.",ref:"Mere Christianity"}
+  ]}
+];
+
+// ============================================================
+//  APOLOGISTS DATA
+// ============================================================
+const APOLOGISTS = [
+  {
+    id:"koukl",
+    name:"Gregg Koukl",
+    emoji:"🗣️",
+    color:"#1a6b3c",
+    title:"Stand to Reason · Tactics",
+    bio:"Founder of Stand to Reason. Former atheist turned Christian philosopher. Master of conversational apologetics — he'd rather put a stone in someone's shoe than win an argument.",
+    quote:'\u201cNever make a statement when a question will do.\u201d',
+    books:["Tactics: A Game Plan for Discussing Your Christian Convictions","Relativism: Feet Firmly Planted in Mid-Air","Street Smarts"],
+    specialty:"Conversational tactics, Socratic questioning, relativism"
+  },
+  {
+    id:"habermas",
+    name:"Gary Habermas",
+    emoji:"📜",
+    color:"#1e3a8a",
+    title:"Liberty University · Minimal Facts Resurrection",
+    bio:"World's leading expert on the historical resurrection. Has read over 4,400 scholarly works on the resurrection. Converted from doubt to certainty after investigating the minimal facts.",
+    quote:'\u201cThe resurrection is the best explanation of the minimal facts accepted by the vast majority of critical scholars.\u201d',
+    books:["The Case for the Resurrection of Jesus","The Historical Jesus","Evidence for the Historical Jesus"],
+    specialty:"Historical resurrection, early creed dating, near-death experiences"
+  },
+  {
+    id:"turek",
+    name:"Frank Turek",
+    emoji:"⚖️",
+    color:"#b45309",
+    title:"CrossExamined.org · Cosmological Arguments",
+    bio:"Cross-examining today's culture with logic and evidence. Former Navy Officer. Debates on college campuses nationwide, unafraid to take on the toughest objections.",
+    quote:'\u201cIt\u2019s not that Christianity is true because it works; it works because it\u2019s true.\u201d',
+    books:["I Don't Have Enough Faith to Be an Atheist","Stealing from God","Correct, Not Politically Correct"],
+    specialty:"Cosmological argument, moral argument, campus apologetics"
+  },
+  {
+    id:"lewis",
+    name:"C.S. Lewis",
+    emoji:"🦁",
+    color:"#4c1d95",
+    title:"Oxford & Cambridge · Mere Christianity",
+    bio:"Oxford don and Cambridge professor who moved from atheism to Christianity through reason. Author of Narnia. His Moral Argument and Trilemma remain among the most influential in apologetics.",
+    quote:'\u201cI believe in Christianity as I believe the sun has risen: not only because I see it, but because by it I see everything else.\u201d',
+    books:["Mere Christianity","The Problem of Pain","Miracles","The Great Divorce","Surprised by Joy"],
+    specialty:"Moral argument, Trilemma, problem of pain, imagination as a gateway to faith"
+  },
+  {
+    id:"wallace",
+    name:"J. Warner Wallace",
+    emoji:"🔍",
+    color:"#1e6b5a",
+    title:"Cold-Case Detective · Cold-Case Christianity",
+    bio:"Former atheist LAPD cold-case homicide detective. Applied crime scene investigation methodology to the Gospels and became a Christian. Expert on eyewitness reliability.",
+    quote:'\u201cThe Gospels pass every test I use on cold-case murder files.\u201d',
+    books:["Cold-Case Christianity","God's Crime Scene","Forensic Faith","Person of Interest"],
+    specialty:"Gospel reliability, eyewitness testimony, investigative apologetics"
+  },
+  {
+    id:"strobel",
+    name:"Lee Strobel",
+    emoji:"📰",
+    color:"#0e7490",
+    title:"Award-Winning Journalist · The Case for Christ",
+    bio:"Former atheist legal editor of the Chicago Tribune. Set out to disprove Christianity for his wife's sake. Two years of investigation convinced him otherwise.",
+    quote:'\u201cThe evidence for Jesus is stronger than for any other figure in ancient history.\u201d',
+    books:["The Case for Christ","The Case for Faith","The Case for a Creator","The Case for Miracles"],
+    specialty:"Journalistic investigation, interview-based apologetics, historical evidence"
+  }
+];
+
+// ============================================================
+//  SCRIPTURES INDEX
+// ============================================================
+const SCRIPTURES = [
+  {ref:"1 Peter 3:15",text:"But in your hearts revere Christ as Lord. Always be prepared to give an answer to everyone who asks you to give the reason for the hope that you have. But do this with gentleness and respect."},
+  {ref:"Romans 1:20",text:"For since the creation of the world God's invisible qualities — His eternal power and divine nature — have been clearly seen, being understood from what has been made, so that people are without excuse."},
+  {ref:"1 Corinthians 15:3-8",text:"Christ died for our sins according to the Scriptures, that He was buried, that He was raised on the third day… He appeared to Cephas, then to the twelve, then to more than five hundred brothers at one time."},
+  {ref:"John 14:6",text:"Jesus answered, 'I am the way and the truth and the life. No one comes to the Father except through me.'"},
+  {ref:"Romans 3:23",text:"For all have sinned and fall short of the glory of God."},
+  {ref:"Ephesians 2:8-9",text:"For it is by grace you have been saved, through faith — and this is not from yourselves, it is the gift of God — not by works, so that no one can boast."},
+  {ref:"John 8:58",text:"'Very truly I tell you,' Jesus answered, 'before Abraham was born, I am!'"},
+  {ref:"Matthew 28:19",text:"Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit."},
+  {ref:"Hebrews 11:1",text:"Now faith is confidence in what we hope for and assurance about what we do not see."},
+  {ref:"Isaiah 53:5",text:"But he was pierced for our transgressions, he was crushed for our iniquities; the punishment that brought us peace was on him, and by his wounds we are healed."},
+  {ref:"Romans 8:28",text:"And we know that in all things God works for the good of those who love him, who have been called according to his purpose."},
+  {ref:"Psalm 19:1",text:"The heavens declare the glory of God; the skies proclaim the work of his hands."},
+  {ref:"John 3:16",text:"For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life."},
+  {ref:"Acts 17:2",text:"As was his custom, Paul went into the synagogue, and on three Sabbath days he reasoned with them from the Scriptures."},
+  {ref:"Galatians 3:28",text:"There is neither Jew nor Gentile, neither slave nor free, nor is there male and female, for you are all one in Christ Jesus."},
+  {ref:"2 Timothy 3:16-17",text:"All Scripture is God-breathed and is useful for teaching, rebuking, correcting and training in righteousness, so that the servant of God may be thoroughly equipped for every good work."},
+  {ref:"Proverbs 3:5-6",text:"Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight."}
+];
+
+// ============================================================
+//  DAILY TIPS
+// ============================================================
+const DAILY_TIPS = [
+  {text:"Never make a statement when a question will do. Questions put the burden of proof where it belongs.",src:"Gregg Koukl · Tactics"},
+  {text:"The resurrection is not a peripheral doctrine — it is the center of everything. If it's false, Christianity is false. If it's true, everything changes.",src:"Gary Habermas · The Case for the Resurrection"},
+  {text:"The Moral Argument: If there is no God, there is no objective moral standard. Yet we all act as if there is. Follow the evidence.",src:"C.S. Lewis · Mere Christianity"},
+  {text:"Put a stone in their shoe. You don't have to win every conversation. Just give them something they can't stop thinking about.",src:"Gregg Koukl · Tactics"},
+  {text:"Ask 'What do you mean by that?' before you answer anything. Most objections fall apart under clarification.",src:"Gregg Koukl · Tactics"},
+  {text:"Don't take the bait. When someone attacks Christianity, ask them to defend their own worldview first.",src:"Frank Turek · Cross Examined"},
+  {text:"The disciples were in the best position to know whether the resurrection was a lie — and they died rather than deny it.",src:"J. Warner Wallace · Cold-Case Christianity"},
+  {text:"Pain is God's megaphone to rouse a deaf world. It is not the opposite of love — it is sometimes its highest expression.",src:"C.S. Lewis · The Problem of Pain"}
+];
+
+// ============================================================
+//  TACTIC GAME SCENARIOS
+// ============================================================
+const TACTIC_SCENARIOS = [
+  {
+    claim:"You can't know anything for certain, so Christianity can't be true.",
+    options:[
+      {text:"Are you certain that we can't know anything for certain?",correct:true,explanation:"This is the 'Suicide Tactic' — the claim self-refutes. If you can't know anything for certain, you can't know THAT for certain."},
+      {text:"I know lots of things for certain!",correct:false,explanation:"This misses the point. The better move is to show the claim defeats itself."},
+      {text:"Let me give you the evidence for the resurrection.",correct:false,explanation:"Too fast. First, expose the self-refuting nature of the claim — then you can present evidence."}
+    ]
+  },
+  {
+    claim:"All religions are basically the same.",
+    options:[
+      {text:"What do you mean by 'basically the same'? Which parts?",correct:true,explanation:"Columbo Question 1: Clarify before countering. Once they specify, you can show the real differences."},
+      {text:"No they're not — Islam and Christianity are completely different.",correct:false,explanation:"Don't counter without clarifying. What do they mean? This opens you to a moving target."},
+      {text:"Jesus is the only way.",correct:false,explanation:"You've made a statement before asking a question. Make them defend their claim first."}
+    ]
+  },
+  {
+    claim:"Christians are hypocrites — they don't even follow their own beliefs.",
+    options:[
+      {text:"Even if that's true, does it disprove the resurrection? What's your evidence against the resurrection?",correct:true,explanation:"Sibling Rivalry / Columbo combo. Acknowledge the point, then redirect to the actual historical claim."},
+      {text:"Not all Christians are hypocrites — I try to live consistently!",correct:false,explanation:"You're on defense. Better to acknowledge the fair point and redirect to the historical evidence."},
+      {text:"What about atheist hypocrites?",correct:false,explanation:"Tu quoque — fighting fire with fire makes you look defensive. Better to acknowledge and redirect."}
+    ]
+  },
+  {
+    claim:"Science and faith are opposites.",
+    options:[
+      {text:"What do you mean by 'faith'? What definition are you using?",correct:true,explanation:"Columbo Q1: Clarify their definition. Most people mean 'blind belief' — which is not what the Bible teaches."},
+      {text:"Many scientists are Christians!",correct:false,explanation:"True but it doesn't address the conceptual claim. Clarify what they mean by 'faith' first."},
+      {text:"The Big Bang proves God!",correct:false,explanation:"Too fast — you haven't clarified their claim yet. Define terms before presenting evidence."}
+    ]
+  }
+];
+
+// ============================================================
+//  APP STATE
+// ============================================================
+let currentTab = 'home';
+let currentQ = null;
+let favorites = JSON.parse(localStorage.getItem('rd_favorites') || '[]');
+let mastered  = JSON.parse(localStorage.getItem('rd_mastered')  || '[]');
+let quizIndex = parseInt(localStorage.getItem('rd_quiz_idx') || '0');
+let quizRevealed = false;
+let tacticIndex = 0;
+let tacticScore = 0;
+let tacticAnswered = false;
+let currentCat = 'All';
+let dark = localStorage.getItem('rd_dark') === 'true';
+
+// ============================================================
+//  INIT
+// ============================================================
+function init() {
+  applyDark();
+  setDailyTip();
+  randomFeatured();
+  renderCatPills();
+  renderQuestions();
+  renderVoices();
+  renderScriptures();
+  renderFavorites();
+  renderQuizCard();
+  renderTacticGame();
+  updateMastery();
+}
+
+// ============================================================
+//  DARK MODE
+// ============================================================
+function toggleDark() {
+  dark = !dark;
+  localStorage.setItem('rd_dark', dark);
+  applyDark();
+}
+function applyDark() {
+  document.getElementById('app').dataset.dark = dark;
+}
+
+// ============================================================
+//  DAILY TIP
+// ============================================================
+function setDailyTip() {
+  const day = new Date().getDay();
+  const tip = DAILY_TIPS[day % DAILY_TIPS.length];
+  document.getElementById('daily-tip').textContent = tip.text;
+  document.getElementById('daily-source').textContent = '— ' + tip.src;
+}
+
+// ============================================================
+//  FEATURED QUESTION
+// ============================================================
+function randomFeatured() {
+  const q = QUESTIONS[Math.floor(Math.random() * QUESTIONS.length)];
+  document.getElementById('featured-q').textContent = q.q;
+  const meta = document.getElementById('featured-meta');
+  meta.innerHTML = `<span class="pill">${q.cat}</span>` + 
+    q.responses.map(r=>`<span class="pill pill-gold">${r.who.split(' ').pop()}</span>`).join('');
+  document.getElementById('featured-card').onclick = () => openDetail(q.id);
+}
+
+// ============================================================
+//  TAB NAVIGATION
+// ============================================================
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  currentTab = tab;
+  if (tab === 'favorites') renderFavorites();
+}
+
+// ============================================================
+//  CATEGORY PILLS
+// ============================================================
+function renderCatPills() {
+  const cats = ['All', ...new Set(QUESTIONS.map(q=>q.cat))];
+  const container = document.getElementById('cat-pills');
+  container.innerHTML = cats.map(c =>
+    `<button class="cat-pill${c===currentCat?' active':''}" onclick="setCat('${c}')">${c}</button>`
+  ).join('');
+}
+
+function setCat(cat) {
+  currentCat = cat;
+  document.querySelectorAll('.cat-pill').forEach(p => p.classList.toggle('active', p.textContent===cat));
+  renderQuestions();
+}
+
+// ============================================================
+//  QUESTIONS LIST
+// ============================================================
+function renderQuestions() {
+  const term = (document.getElementById('q-search')?.value || '').toLowerCase();
+  let list = QUESTIONS;
+  if (currentCat !== 'All') list = list.filter(q=>q.cat===currentCat);
+  if (term) list = list.filter(q =>
+    q.q.toLowerCase().includes(term) ||
+    q.cat.toLowerCase().includes(term) ||
+    q.responses.some(r => r.who.toLowerCase().includes(term) || r.text.toLowerCase().includes(term))
+  );
+
+  const container = document.getElementById('q-list');
+  if (!list.length) {
+    container.innerHTML = `<div style="text-align:center;padding:40px 0;color:var(--muted);">No questions found.</div>`;
+    return;
+  }
+  container.innerHTML = list.map(q => {
+    const fav = favorites.includes(q.id);
+    const mas = mastered.includes(q.id);
+    return `<div class="q-item" onclick="openDetail(${q.id})">
+      <div class="q-item-star">${fav?'⭐':'☆'}</div>
+      <div class="q-item-body">
+        <div class="q-item-q">${q.q}</div>
+        <div class="q-item-meta">
+          <span class="pill">${q.cat}</span>
+          ${mas?'<span class="pill pill-green">✓ Mastered</span>':''}
+        </div>
+      </div>
+      <div class="q-item-chevron">›</div>
+    </div>`;
+  }).join('');
+}
+
+// ============================================================
+//  DETAIL MODAL
+// ============================================================
+function openDetail(id) {
+  const q = QUESTIONS.find(x=>x.id===id);
+  if (!q) return;
+  currentQ = q;
+  document.getElementById('modal-category').textContent = q.cat;
+  document.getElementById('modal-q').textContent = q.q;
+
+  const fav = favorites.includes(id);
+  document.getElementById('fav-btn').textContent = fav ? '⭐ Saved' : '☆ Save';
+
+  const body = document.getElementById('modal-body');
+  let html = '';
+
+  // Scriptures
+  if (q.scriptures?.length) {
+    html += `<div style="margin-bottom:20px;">
+      <div class="section-label">Key Scriptures</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        ${q.scriptures.map(s=>`<span class="pill">${s}</span>`).join('')}
+      </div>
+    </div>`;
+  }
+
+  // Responses
+  html += `<div class="section-label">Expert Responses</div>`;
+  q.responses.forEach(r => {
+    const ap = APOLOGISTS.find(a=>a.name===r.who)||{color:'#888',emoji:'🗣️'};
+    html += `<div style="margin-bottom:20px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <div style="width:36px;height:36px;border-radius:12px;background:${ap.color};color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">${ap.emoji}</div>
+        <div>
+          <div style="font-weight:700;font-size:15px;">${r.who}</div>
+          <div style="font-size:11px;color:var(--muted);">${r.ref}</div>
+        </div>
+      </div>
+      <p style="font-size:14px;line-height:1.65;color:var(--charcoal);">${r.text}</p>
+    </div>`;
+  });
+
+  // Koukl tactic tip
+  const tip = DAILY_TIPS[currentQ.id % DAILY_TIPS.length];
+  html += `<div style="background:rgba(26,107,60,0.08);border-left:3px solid #1a6b3c;border-radius:0 12px 12px 0;padding:12px 14px;margin-top:4px;">
+    <div style="font-size:12px;font-weight:700;color:#1a6b3c;margin-bottom:4px;">💡 TACTICS TIP</div>
+    <div style="font-size:13px;line-height:1.5;color:var(--charcoal);">Ask: <em>"What do you mean by that?"</em> — Let them clarify before you respond. Questions are more powerful than arguments.</div>
+  </div>`;
+
+  body.innerHTML = html;
+  document.getElementById('detail-modal').classList.add('open');
+}
+
+function closeDetail() {
+  document.getElementById('detail-modal').classList.remove('open');
+  currentQ = null;
+}
+function closeDetailIfBackdrop(e) {
+  if (e.target.id === 'detail-modal') closeDetail();
+}
+
+function toggleFav() {
+  if (!currentQ) return;
+  const id = currentQ.id;
+  if (favorites.includes(id)) {
+    favorites = favorites.filter(f=>f!==id);
+    showToast('Removed from saved');
+  } else {
+    favorites.push(id);
+    showToast('⭐ Saved!');
+  }
+  localStorage.setItem('rd_favorites', JSON.stringify(favorites));
+  document.getElementById('fav-btn').textContent = favorites.includes(id) ? '⭐ Saved' : '☆ Save';
+  renderQuestions();
+}
+
+function copyAnswer() {
+  if (!currentQ) return;
+  const q = currentQ;
+  let text = `${q.q}\n\n`;
+  q.responses.forEach(r => {
+    text += `${r.who}:\n${r.text}\n(${r.ref})\n\n`;
+  });
+  text += `— Ready Defense · 1 Peter 3:15`;
+  navigator.clipboard?.writeText(text).then(()=>showToast('📋 Copied!')).catch(()=>showToast('Copy failed'));
+}
+
+// ============================================================
+//  VOICES TAB
+// ============================================================
+function renderVoices() {
+  document.getElementById('voices-grid').innerHTML = APOLOGISTS.map(a =>
+    `<div class="ap-card" onclick="openApModal('${a.id}')">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="ap-avatar" style="background:${a.color};">${a.emoji}</div>
+        <div style="flex:1;">
+          <div style="font-weight:700;font-size:16px;">${a.name}</div>
+          <div style="font-size:12px;color:var(--muted);">${a.title}</div>
+        </div>
+        <div style="color:var(--muted);font-size:18px;">›</div>
+      </div>
+      <p style="margin-top:12px;font-size:13px;line-height:1.55;color:var(--muted);">${a.quote}</p>
+    </div>`
+  ).join('');
+}
+
+function openApModal(id) {
+  const a = APOLOGISTS.find(x=>x.id===id);
+  if (!a) return;
+  document.getElementById('ap-modal-header').innerHTML = `
+    <div class="ap-avatar" style="background:${a.color};width:52px;height:52px;border-radius:16px;">${a.emoji}</div>
+    <div style="flex:1;">
+      <div style="font-weight:700;font-size:18px;color:var(--charcoal);">${a.name}</div>
+      <div style="font-size:12px;color:var(--muted);">${a.title}</div>
+    </div>
+    <button onclick="closeApModal()" style="background:var(--warm);border:none;border-radius:50%;width:34px;height:34px;font-size:22px;cursor:pointer;flex-shrink:0;color:var(--muted);">×</button>
+  `;
+  document.getElementById('ap-modal-body').innerHTML = `
+    <p style="font-size:14px;line-height:1.7;color:var(--charcoal);margin-bottom:16px;">${a.bio}</p>
+    <div style="background:rgba(15,32,80,0.06);border-radius:14px;padding:14px;margin-bottom:16px;">
+      <div style="font-family:'Libre Baskerville',serif;font-style:italic;font-size:15px;line-height:1.5;color:var(--navy);">${a.quote}</div>
+    </div>
+    <div class="section-label">Key Books</div>
+    ${a.books.map(b=>`<div style="padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:14px;">📗 ${b}</div>`).join('')}
+    <div style="margin-top:16px;" class="section-label">Specialty</div>
+    <p style="font-size:14px;color:var(--muted);">${a.specialty}</p>
+  `;
+  document.getElementById('ap-modal').classList.add('open');
+}
+function closeApModal() {
+  document.getElementById('ap-modal').classList.remove('open');
+}
+
+// ============================================================
+//  FAVORITES TAB
+// ============================================================
+function renderFavorites() {
+  const favQ = QUESTIONS.filter(q=>favorites.includes(q.id));
+  const container = document.getElementById('fav-list');
+  const empty = document.getElementById('fav-empty');
+  if (!favQ.length) {
+    container.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  container.innerHTML = favQ.map(q => `
+    <div class="q-item" onclick="openDetail(${q.id})">
+      <div class="q-item-star">⭐</div>
+      <div class="q-item-body">
+        <div class="q-item-q">${q.q}</div>
+        <div class="q-item-meta"><span class="pill">${q.cat}</span></div>
+      </div>
+      <div class="q-item-chevron">›</div>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+//  SCRIPTURE TAB
+// ============================================================
+function renderScriptures() {
+  const term = (document.getElementById('scripture-search')?.value || '').toLowerCase();
+  const list = SCRIPTURES.filter(s => !term || s.ref.toLowerCase().includes(term) || s.text.toLowerCase().includes(term));
+  document.getElementById('scripture-list').innerHTML = list.map(s => `
+    <div class="card" style="margin-bottom:10px;">
+      <div style="font-weight:700;font-size:14px;color:var(--navy);margin-bottom:6px;">${s.ref}</div>
+      <p style="font-size:14px;line-height:1.65;color:var(--charcoal);">${s.text}</p>
+    </div>
+  `).join('') || `<div style="text-align:center;padding:30px;color:var(--muted);">No verses found.</div>`;
+}
+
+// ============================================================
+//  QUIZ MODE
+// ============================================================
+function renderQuizCard() {
+  const q = QUESTIONS[quizIndex % QUESTIONS.length];
+  const total = QUESTIONS.length;
+  const pct = (mastered.length / total * 100).toFixed(0);
+  
+  document.getElementById('quiz-counter').textContent = `Question ${(quizIndex%total)+1} of ${total}`;
+  document.getElementById('quiz-bar').style.width = pct + '%';
+  quizRevealed = false;
+
+  const mas = mastered.includes(q.id);
+  document.getElementById('quiz-card-area').innerHTML = `
+    <div class="quiz-card" onclick="revealQuiz()" id="quiz-main">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--muted);margin-bottom:8px;">${q.cat.toUpperCase()}</div>
+      <p class="serif" style="font-size:19px;font-weight:700;line-height:1.4;color:var(--charcoal);">${q.q}</p>
+      <div style="margin-top:16px;">
+        <span style="font-size:13px;color:var(--muted);">Tap to reveal answer</span>
+      </div>
+    </div>
+    <div id="quiz-answer" style="display:none;margin-top:12px;">
+      ${q.responses.map(r=>`
+        <div class="card" style="margin-bottom:8px;">
+          <div style="font-weight:700;font-size:14px;color:var(--navy);margin-bottom:6px;">${r.who}</div>
+          <p style="font-size:13px;line-height:1.6;color:var(--charcoal);">${r.text}</p>
+          <div style="font-size:11px;color:var(--muted);margin-top:6px;">${r.ref}</div>
+        </div>
+      `).join('')}
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <button class="btn btn-outline" style="flex:1;" onclick="quizNext()">→ Next</button>
+        <button class="btn ${mas?'btn-outline':'btn-gold'}" style="flex:1;" onclick="markMastered(${q.id})">
+          ${mas?'✓ Mastered':'Mark Mastered'}
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function revealQuiz() {
+  if (quizRevealed) return;
+  quizRevealed = true;
+  document.getElementById('quiz-main').style.cursor = 'default';
+  document.getElementById('quiz-main').querySelector('span').textContent = 'Answer:';
+  document.getElementById('quiz-answer').style.display = 'block';
+}
+
+function quizNext() {
+  quizIndex = (quizIndex + 1) % QUESTIONS.length;
+  localStorage.setItem('rd_quiz_idx', quizIndex);
+  renderQuizCard();
+  document.getElementById('tab-quiz').scrollTop = 0;
+}
+
+function resetQuiz() {
+  quizIndex = 0;
+  localStorage.setItem('rd_quiz_idx', 0);
+  renderQuizCard();
+}
+
+function markMastered(id) {
+  if (mastered.includes(id)) {
+    mastered = mastered.filter(m=>m!==id);
+    showToast('Unmarked');
+  } else {
+    mastered.push(id);
+    showToast('✅ Mastered!');
+  }
+  localStorage.setItem('rd_mastered', JSON.stringify(mastered));
+  updateMastery();
+  renderQuizCard();
+}
+
+function updateMastery() {
+  const pct = Math.round(mastered.length / QUESTIONS.length * 100);
+  document.getElementById('mastery-count').textContent = `${mastered.length} / ${QUESTIONS.length}`;
+  document.getElementById('mastery-bar').style.width = pct + '%';
+}
+
+// ============================================================
+//  TACTICS MINI-GAME
+// ============================================================
+function renderTacticGame() {
+  const s = TACTIC_SCENARIOS[tacticIndex % TACTIC_SCENARIOS.length];
+  tacticAnswered = false;
+  document.getElementById('tactic-game-area').innerHTML = `
+    <div class="scenario-box" style="margin-bottom:12px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;opacity:0.5;margin-bottom:8px;">SOMEONE SAYS:</div>
+      <p class="serif" style="font-size:16px;font-style:italic;line-height:1.5;">"${s.claim}"</p>
+    </div>
+    <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;">Which Columbo response is most effective?</div>
+    <div style="display:flex;flex-direction:column;gap:8px;" id="tactic-options">
+      ${s.options.map((o,i)=>`
+        <button class="response-option" onclick="answerTactic(${i})">
+          ${String.fromCharCode(65+i)}. ${o.text}
+        </button>
+      `).join('')}
+    </div>
+    <div id="tactic-feedback" style="display:none;margin-top:12px;"></div>
+  `;
+}
+
+function answerTactic(idx) {
+  if (tacticAnswered) return;
+  tacticAnswered = true;
+  const s = TACTIC_SCENARIOS[tacticIndex % TACTIC_SCENARIOS.length];
+  const opt = s.options[idx];
+  const btns = document.querySelectorAll('#tactic-options .response-option');
+  btns.forEach((b,i) => {
+    if (s.options[i].correct) b.classList.add('correct');
+    else if (i === idx && !opt.correct) b.classList.add('wrong');
+  });
+  if (opt.correct) { tacticScore++; showToast('✅ Correct!'); }
+  else { showToast('Not quite — see the explanation.'); }
+  document.getElementById('tactic-score-label').textContent = 'Score: ' + tacticScore;
+  document.getElementById('tactic-feedback').style.display = 'block';
+  document.getElementById('tactic-feedback').innerHTML = `
+    <div class="card" style="border-left:3px solid ${opt.correct?'#1a6b3c':'#b91c1c'};">
+      <div style="font-weight:700;margin-bottom:6px;font-size:14px;">${opt.correct?'✅ Great tactic!':'💡 Better option:'}</div>
+      <p style="font-size:13px;line-height:1.6;color:var(--charcoal);">${opt.explanation}</p>
+      <button class="btn btn-navy" style="width:100%;margin-top:12px;" onclick="nextTactic()">Next Scenario →</button>
+    </div>
+  `;
+}
+
+function nextTactic() {
+  tacticIndex++;
+  renderTacticGame();
+}
+
+// ============================================================
+//  GLOBAL SEARCH
+// ============================================================
+function openSearch() {
+  document.getElementById('search-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('global-search').focus(), 100);
+}
+function closeSearch() {
+  document.getElementById('search-modal').classList.remove('open');
+  document.getElementById('global-search').value = '';
+  document.getElementById('global-results').innerHTML = '';
+}
+
+function runGlobalSearch() {
+  const term = document.getElementById('global-search').value.toLowerCase().trim();
+  const container = document.getElementById('global-results');
+  if (!term) { container.innerHTML = ''; return; }
+
+  const hits = QUESTIONS.filter(q =>
+    q.q.toLowerCase().includes(term) ||
+    q.cat.toLowerCase().includes(term) ||
+    q.responses.some(r => r.who.toLowerCase().includes(term) || r.text.toLowerCase().includes(term))
+  ).slice(0, 8);
+
+  if (!hits.length) {
+    container.innerHTML = `<div style="text-align:center;padding:20px;color:var(--muted);">No results found.</div>`;
+    return;
+  }
+
+  container.innerHTML = hits.map(q => `
+    <div onclick="closeSearch();openDetail(${q.id})" style="padding:12px 16px;border-bottom:1px solid rgba(0,0,0,0.06);cursor:pointer;display:flex;align-items:center;gap:10px;">
+      <div style="flex:1;">
+        <div style="font-size:14px;font-weight:600;color:var(--charcoal);">${q.q}</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px;">${q.cat}</div>
+      </div>
+      <div style="color:var(--muted);">›</div>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+//  TOAST
+// ============================================================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+// ============================================================
+//  KEYBOARD HANDLERS
+// ============================================================
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeDetail();
+    closeSearch();
+    closeApModal();
+  }
+});
+
+// ============================================================
+//  LAUNCH
+// ============================================================
+window.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
 </html>
